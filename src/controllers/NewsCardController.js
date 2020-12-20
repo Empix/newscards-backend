@@ -8,18 +8,30 @@ module.exports = {
   },
 
   async create(req, res) {
-    const { title, author, link, description, image_id } = req.body;
+    const { title, author, url, description } = req.body;
+    const { filename } = req.file;
 
     await connection('news_cards')
       .insert({
         title,
         author,
-        link,
+        url,
         description,
-        image_id,
+        image_url: `${process.env.APP_URL}/images/${filename}`,
       })
       .then((result) => {
         return res.json({ success: true });
+      });
+  },
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    await connection('news_cards')
+      .where('id', id)
+      .delete()
+      .then((result) => {
+        return res.json({ success: true, result });
       });
   },
 };

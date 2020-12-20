@@ -4,11 +4,9 @@ exports.up = function (knex) {
 
     table.string('title').notNullable();
     table.string('author');
-    table.string('link').notNullable();
+    table.string('url').notNullable();
+    table.string('image_url').notNullable();
     table.text('description').notNullable();
-
-    table.integer('image_id').unsigned().notNullable();
-    table.foreign('image_id').references('id').inTable('images');
   });
 };
 
