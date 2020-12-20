@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 
 module.exports = {
   development: {
@@ -10,7 +11,7 @@ module.exports = {
       database: process.env.DB_DATABASE,
     },
     migrations: {
-      directory: `${__dirname}/src/database/migrations`,
+      directory: path.resolve(__dirname, 'src', 'database', 'migrations'),
     },
   },
 };
