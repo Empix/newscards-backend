@@ -9,9 +9,9 @@
 
 ### Routes
 
-`GET /newscards` Lista todos os cards <br>
-`DELETE /newscards/:id` Deleta um card pelo id <br>
-`POST /newscards` Adiciona um card <br>
+`GET /newscards` Lista todos os cards <br><br>
+`DELETE /newscards/:id` Deleta um card pelo id <br><br>
+`POST /newscards` Adiciona um card <br><br>
 ![Insomnia Post Route Screenshot](./images/screenshot_post_insomnia.png)
 
 ### Starting
