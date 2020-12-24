@@ -19,7 +19,7 @@
 - Clone o repositório
 
 ```
-git clone https://github.com/empixx/NewsCards-backend.git
+git clone https://github.com/empixx/newscards-backend.git
 ```
 
 - Instale as dependências
