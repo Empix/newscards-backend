@@ -28,7 +28,11 @@ module.exports = {
     if (allowedMimes.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error('Unsupported file type!'));
+      const error = new multer.MulterError();
+      error.code = 'UNSUPPORTED_FILE_TYPE';
+      error.message = 'Unsupported file type';
+
+      cb(error);
     }
   },
 };
