@@ -17,6 +17,13 @@ app.use(morgan('dev'));
 app.use('/images', express.static(path.resolve(__dirname, '..', 'uploads')));
 app.use(routes);
 
+app.use((req, res, next) => {
+  const error = new Error('Route not found!');
+  error.status = 404;
+
+  next(error);
+});
+
 app.use((error, req, res, next) => {
   if (error instanceof multer.MulterError) {
     error.status = 400;
