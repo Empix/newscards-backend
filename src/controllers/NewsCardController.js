@@ -10,9 +10,16 @@ module.exports = {
     return res.json(newscards);
   },
 
-  async create(req, res) {
+  async create(req, res, next) {
     const { title, author, url, description } = req.body;
-    const { filename } = req.file;
+    const { file } = req;
+
+    if (!title || !url || !description || !file) {
+      const error = new Error('Fields incorrectly filled');
+      error.status = 400;
+
+      return next(error);
+    }
 
     await connection('news_cards')
       .insert({
@@ -20,7 +27,7 @@ module.exports = {
         author,
         url,
         description,
-        image_url: `${process.env.APP_URL}/images/${filename}`,
+        image_url: `${process.env.APP_URL}/images/${file.filename}`,
       })
       .then((result) => {
         return res.json({ success: true });
