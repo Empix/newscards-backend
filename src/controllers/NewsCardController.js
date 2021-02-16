@@ -16,11 +16,20 @@ module.exports = {
   },
 
   async index(req, res) {
+    let { search = '' } = req.query;
+
     const newscards = await connection('news_cards')
       .select('*')
+      .where('title', 'like', `%${search}%`)
+      .orWhere('author', 'like', `%${search}%`)
+      .orWhere('description', 'like', `%${search}%`)
       .orderBy('id', 'desc');
 
     return res.json(newscards);
+  },
+
+  async search(req, res) {
+    return res.json({ success: true });
   },
 
   async create(req, res, next) {
