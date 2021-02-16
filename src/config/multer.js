@@ -14,7 +14,8 @@ module.exports = {
       crypto.randomBytes(16, (err, hash) => {
         if (err) cb(err);
 
-        const filename = `${hash.toString('hex')}-${file.originalname}`;
+        const extension = file.mimetype == 'image/png' ? '.png' : '.jpg';
+        const filename = `${hash.toString('hex')}${extension}`;
         cb(null, filename);
       });
     },
