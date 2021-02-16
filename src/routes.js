@@ -4,7 +4,13 @@ const multerConfig = require('./config/multer');
 
 const NewsCardController = require('./controllers/NewsCardController');
 
+routes.get('/newscards/:id', NewsCardController.findIndex);
 routes.get('/newscards', NewsCardController.index);
+routes.put(
+  '/newscards/:id',
+  multer(multerConfig).single('image'),
+  NewsCardController.update
+);
 routes.post(
   '/newscards',
   multer(multerConfig).single('image'),
