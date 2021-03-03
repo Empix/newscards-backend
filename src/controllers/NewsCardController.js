@@ -28,10 +28,6 @@ module.exports = {
     return res.json(newscards);
   },
 
-  async search(req, res) {
-    return res.json({ success: true });
-  },
-
   async create(req, res, next) {
     const { title, author, url, description } = req.body;
     const { file } = req;
