@@ -16,16 +16,33 @@ module.exports = {
   },
 
   async index(req, res) {
-    let { search = '' } = req.query;
+    let { search = '', page = 1 } = req.query;
+
+    page = page < 1 ? 1 : page;
+    const limit = 9;
 
     const newscards = await connection('news_cards')
       .select('*')
       .where('title', 'like', `%${search}%`)
       .orWhere('author', 'like', `%${search}%`)
       .orWhere('description', 'like', `%${search}%`)
-      .orderBy('id', 'desc');
+      .orderBy('id', 'desc')
+      .limit(limit)
+      .offset(limit * (page - 1));
 
-    return res.json(newscards);
+    const [count] = await connection('news_cards')
+      .count('id as total')
+      .where('title', 'like', `%${search}%`)
+      .orWhere('author', 'like', `%${search}%`)
+      .orWhere('description', 'like', `%${search}%`);
+
+    const data = {
+      data: newscards,
+      currentPage: page,
+      totalPages: Math.ceil(count.total / limit),
+    };
+
+    return res.json(data);
   },
 
   async create(req, res, next) {
